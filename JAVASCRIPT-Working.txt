@@ -1,0 +1,279 @@
+    A HighLevel Over-View of JavaScript
+---------------------------------------------------------
+JavaScript is a HighLevel , GarbageCollected , Interpreted or JustInTimeCompiled , Multi-Paradigm ,ProtoType-based object-oriented programming language.
+
+
+HighLevel :-
+------------------------------
+Every program running on a computer needs some resources such as memory , cpu to do it's work.
+
+There lowlevel languages like C , where developer has to manage resources manually , for ex: asking the computer for memory to create a new variable.
+
+Developer doesnot have to worry, everything happens automatically in Highlevel languages
+eg: python , javascript
+
+GarbageCollected :-
+---------------------------------
+An algorithm inside javascript engine which automatically removes all unused objects from the computer memory
+
+
+Interpreted or JustInTimeCompiled :-
+------------------------------------------------
+All the javascript code is complied into machine understandable code
+
+Multi-Paradigm :-
+--------------------------------
+Paradigm : An approach and mindset of structuring the code , which will direct your coding style and technique.
+
+3 popular paradigms are :
+
+1) Procedural programming
+2) Object oriented programming
+3) Functional programming
+
+Javascript supports all of the 3 paradigms.
+
+
+
+ProtoType-based object-oriented :-
+-----------------------------------------
+it supports oop.
+
+
+First-Class functions:-
+------------------------------------------
+In a language with firstclass functions , functions are simply treated as regular variables. we can pass them in to other functions, and return them from functions.
+
+Dynamic :-
+-----------------------------------------------
+NO datatype definitions. Types become known at runtime . Data type of a variable is automatically changed when we reassign a variable.
+
+
+
+Single-Threaded and Non-blocking event loop :-
+--------------------------------------------------------
+Concurrency Model : It defines how the javascript engine handles multiple tasks happening at the same time.
+
+Why we need concurency Model ?
+
+Because Javascript runs in one single thread , so , it can only do one thing at a time. So , we need a way to handle multiple things happening at the same time.
+
+
+A thread is actually a set of instructions that is executed in the computers CPU. So , a thread is the place where our code excutes in the machine processor.
+
+so , if there is long running task , it would block the single thread. However we want Non-blocking behaviour.
+
+We will achieve the Non-blocking behaviour , by using an event loop.
+
+An event loop takes the long running tasks, executes them in the background and puts them back in the main thread once they are finished.
+
+======================================================================================================================================
+
+JavaScript Engine and Runtime :-
+----------------------------------------------------------------------------
+A Javascript Engine is a Program the executes the javascript code.
+
+ex : v8
+
+
+Any JavaScript Engine always contains a  CallStack and Heap.
+
+CallStack is the place where our code gets executed using something called Execution Context
+
+Heap is an Unstructured Memory Pool which stores all the objects that our application needs.
+
+How code is compiled to machine code ?
+-----------------------------------------------
+A machine only undestands binary digits i,e 0's and 1's , so every computer program must be converted in to 0's and 1's. 
+
+This covertion can happen using Interpretation or Compilation.
+
+Compilation :
+-------------------
+In compilation the entire Source code is converted in to machine code at once , and written in to a binary file or Portable file that can be executed by a computer
+
+              Step -1                                 Step -2
+Source Code  ------------->    Portable file :   ------------------->  Program 
+              Compilation      MachineCode          Execution          Running
+
+
+
+
+Interpretation :
+---------------------------
+In Interpretation , interpreter runs through the source code and executes it line-by-line 
+
+
+               Step -1
+Source Code  -------------------------->  Program
+              Execution Line-By-Line      Running
+
+
+
+
+JavaScript is a Intrepreted Language , but instead of simple interpretation , Modern JavaScript Engine now Uses a mix between Interpretation and Compilation which is called JUST-IN-TIME COMPILATION(JIT).
+
+JUST-IN-TIME COMPILATION(JIT) :-
+--------------------------------------------------------
+Entire code is converted into machine code at once and executes immediately.
+
+
+            Step -1                                 Step -2
+Source Code  ------------->   MachineCode ------------------->  Program 
+              Compilation                        Execution      Running
+
+
+So , in this approach there will be no portable file in between the step-1 and step-2.
+
+
+
+====================================================================================================================================
+
+JUST-IN-TIME COMPILATION of a JavaScript :-
+-----------------------------------------------------
+so , first a piece of JavaScript code enters in to the javascript engine , 
+
+STEP - 1 : - PARSING
+----------------------
+The first Step is to Parse the Code, which essentially means to Read the code. During the Parsing(Reading) Process the code is parsed in to a DataStructure called ABSTRACT SYNTAX TREE(AST)
+
+AST works by first splitting the each line of code in to pieces that are meaningful to the language like const or function keywords and then saving all the pieces in to a tree in a structured way.This step also checks if there are any Syntax errors.
+
+AST is not a DOM Tree , they both are different.
+
+STEP - 2 :- COMPILATION 
+------------------------
+The Second step is compilation , which takes the Generated AST and Compiles it in to machine code.
+
+STEP - 3 :- EXECUTION 
+-----------------------
+The third step is to execute the code.
+
+
+Modern JavaScript Engines has some pretty clever optimzation strategy , what they do is to create a very UNOPTIMIZED version of the machine code in the begining , just so that it can start executing as fast as possible , then in the background this code is being optimized and recompiled during the already running program execution , this can be done multiple times and after each optimization the unoptimized code is simply swept for the new more optimized code without ever stopping execution.
+
+This process makes Modern JSEngines such as V8 So fast.
+
+All the above three steps happens in special threads inside the engine that we cannot access from our code.
+
+================================================================================================================================================
+
+JavaScript Runtime :-
+------------------------------
+The most common JSRuntime is Browser. A JSRuntime is like a box that contains all the javaScript related stuff that we need.
+
+A JSRuntime also includes a CallBack Queue.
+
+A  CallBack Queue is a DataStructure that contains all the CallBack Functions that are ready to be executed.
+
+For example we attach Event Handler Functions to DOM elements like a button to react to certain events. 
+
+These Event Handler Functions are also called CallBack Functions.
+
+So , as the event happens for example a click , the callback function will be called.
+
+
+And here is how it actually works behind the scenes ,
+
+So , the first thing that actually happens after event is , that the call back function is put in to callBack queue of JSEngine.
+
+Then when the CallStack of a JSEngine is Empty , the callBack function is passed to the CallStack , So that it can be executed. This happens with the help of Event Loop. So , basically the Event Loop takes CallBack Functions from the CallBack Queue and puts them in the CallStack So that they can be executed.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+How is JavaScript Code executed ?
+
+Let assume that our code has just finished compiling as mentioned above in JUST-IN-TIME COMPILATION of a JavaScript.
+
+So the code is now ready to be executed, what happens then is that a so called GLOBAL EXECUTION CONTEXT is created for top level code.
+
+TOP LEVEL CODE is the code that is not inside any FUNCTION.
+
+EXECUTION CONTEXT : It is a Environment in which a piece of JavaScript is executed. It stores all the necessary information for some code to be executed.
+
+JavaScript code always runs inside an execution context.
+
+In a JavaScript Project , no matter how large it is , there will always Excatly ONE GLOBAL EXECUTION CONTEXT.
+
+
+After the Execution of Top Level code in GLOBAL EXECUTION CONTEXT. Functions finally start to execute as well.
+
+Execution of Functions :
+--------------------------
+For each and every function call , a new execution context will be created containing all the information that is necessary to run excatly that function.
+
+Now , when all the functions are done executing , the JSEngine will basically keep waiting for the CallBack Functions to Arrive , so that it can execute them as well.
+
+
+
+what's Inside an EXECUTION CONTEXT ?
+----------------------------------------------------
+
+  1) VARIABLE ENVIRONMENT  
+---------------------------------
+The first thing that is inside any EXECUTION CONTEXT is so called an VARIABLE ENVIRONMENT.
+
+In this VARIABLE ENVIRONMENT , all our VARIABLES and FUNCTION DECLARATIONS are stored and there is also a special " ARGUMENTS OBJECT ".
+
+
+VARIABLE ENVIRONMENT 
+   -- let , const and var declarations.
+   -- Functions
+   -- Arguments Object
+
+The Arguments Object contains all the arguments that we were passed in to the function that the current execution context belongs to.
+
+
+2) SCOPE CHAIN
+
+3) this keyword
+
+
+
+SCOPE and SCOPE CHAIN :-
+======================================================================================================
+
+SCOPING : How our program's variables are organized and accessed . Where do variables live and where we can access certain variables.
+
+
+LEXICAL SCOPING :- Scoping is controlled by PLACEMENT of functions and blocks in the code.
+
+
+
+SCOPE : scope is an environment in which a certain variable is declared. There is GLOBAL SCOPE , FUNCTION SCOPE and BLOCK SCOPE.
+
+
+SCOPE OF A VARIABLE : Region of our code where a cetain variable can be accessed.
+
+TYPES OF SCOPE IN JAVASCRIPT : -
+-------------------------------------------------------------------------------
+1) GLOBAL SCOPE :
+-----------------------------
+eg : const name = 'venky';
+
+-> outside of any function or block.
+->Variables declared in global scope are accessible everywhere.
+
+
+
+2) FUNCTION SCOPE :
+------------------------------
+eg: function calcAGE(birthYear){
+           const now = 2021;
+           const age = now - birthYear;
+           return age;
+       }
+
+-> Variables are accessible only inside the function and not outside.
+-> It is also called a LOCAL SCOPE.
+
+3) BLOCK SCOPE :
+--------------------------------
+
+eg: if(year >=1997){
+       const result = true;
+      }
+
+-> variables are accessible only inside the block.
+-> This applies only to Let and Const variables but not Var.
+-> let and const are block scoped and var is function scoped.
